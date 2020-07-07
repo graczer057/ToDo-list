@@ -1,0 +1,90 @@
+/*body{*/
+/*    background-color: #1d2b37;*/
+/*    color:white;*/
+/*}*/
+
+/*.navbar{*/
+/*    background-color: #091115;*/
+/*    height: 75px;*/
+/*}*/
+
+/*.main-container{*/
+/*    margin-top: 100px;*/
+/*    min-height: 80vh;*/
+/*}*/
+
+/*.section_area{*/
+/*    max-width: 720px;*/
+/*    margin: 50px auto;*/
+/*    background-color: rgba(0,0,0,0.5);*/
+/*    box-shadow: 4px 4px 5px #101320;*/
+/*}*/
+
+/*.content_card{*/
+/*    margin: 25px auto;*/
+/*}*/
+
+/*.mentors_cards{*/
+/*    padding: 20px;*/
+/*}*/
+
+
+/*.about_project_list{*/
+/*    font-size: 18px*/
+/*}*/
+
+
+/*.mentor_card{*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 2fr;*/
+
+/*    !*margin-bottom: 30px;*!*/
+/*}*/
+
+/*.mentor_info{*/
+/*    padding: 10px;*/
+/*}*/
+
+/*.mentor_name{*/
+/*    font-size: 24px;*/
+/*}*/
+
+/*.mentor_details{*/
+/*    margin: 0;*/
+/*}*/
+
+
+/*.divider{*/
+/*    margin: 20px auto 50px;*/
+/*    height: 1px;*/
+/*    width: 50%;*/
+/*    box-shadow: 0 1px 4px rgba(22, 22, 180, 0.8);*/
+/*    background-color: #0000a0;*/
+/*}*/
+
+/*.technologies_list{*/
+/*    font-size: 18px;*/
+/*}*/
+/*.technologies_list > *{*/
+/*    cursor: help;*/
+/*}*/
+
+/*.technologies_list > .fa-html5 {*/
+/*    color:orange;*/
+/*}*/
+/*.technologies_list > .fa-css3-alt{*/
+/*    color: dodgerblue;*/
+/*}*/
+/*.technologies_list > .fa-php{*/
+/*    color:mediumpurple;*/
+/*}*/
+/*.technologies_list > .fa-network-wired{*/
+/*    color: #7abaff;*/
+/*}*/
+/*.technologies_list > .fa-server{*/
+/*    color: silver;*/
+/*}*/
+
+.btn-outline-danger{
+    background-color: transparent;
+}
