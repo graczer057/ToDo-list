@@ -30,7 +30,8 @@ class ListController extends AbstractController
      * @return Response
      * @Route("/", name="homepage", methods={"GET"})
      */
-    public function HomePage(): Response{
+    public function HomePage(): ?Response
+    {
         $todos = $this->TodoRepository->findBy([],[
             'priority' => 'DESC'
         ]);
@@ -47,8 +48,8 @@ class ListController extends AbstractController
 
         return $this->render('homepage.html.twig',[
             'todos' => $todos,
-            'historical' => $historicalTasks,
-            'actual' => $actualTasks
+            'historical' => $historicalTasks ?? null,
+            'actual' => $actualTasks ?? null
         ]);
     }
 }

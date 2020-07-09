@@ -37,7 +37,6 @@ class CreateController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
-            dump($formData);
 
             $newTodo = new Todo(
                 $formData['description'],
