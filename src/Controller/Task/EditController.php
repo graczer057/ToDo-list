@@ -2,6 +2,7 @@
 
 namespace App\Controller\Task;
 
+use App\Form\EditTaskType;
 use App\Form\TaskType;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +42,7 @@ class EditController extends AbstractController
         if(is_null($task)){
             throw new \Exception("Task with id: {$taskId} is not found", 404);
         }
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(EditTaskType::class, $task);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -52,7 +53,7 @@ class EditController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('form.html.twig', [
+        return $this->render('edit_form.html.twig', [
             'form' => $form->createView()
         ]);
     }

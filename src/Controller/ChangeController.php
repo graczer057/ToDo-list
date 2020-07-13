@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Accounts;
+namespace App\Controller;
 
-use App\Form\ExpireFormType;
+use App\Form\ChangeFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Mime\Email;
 
-class ExpireController extends AbstractController
+class ChangeController extends AbstractController
 {
     private $entityManger;
     private $UserRepository;
@@ -35,42 +35,47 @@ class ExpireController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
     /**
+     * @param string $token
      * @param Request $request
      * @return Response
-     * @Route("/expire}", name="expire")
+     * @Route("/change/{token}", name="change_password", methods={"GET", "POST"})
      */
-    public function expire(Request $request, MailerInterface $mailer): Response
+    public function change(string $token, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(ExpireFormType::class);
+        $form = $this->createForm(ChangeFormType::class);
         $form->handleRequest($request);
 
-        $formData = $form->getData();
-        dump($formData);
-        $this->createNotFoundException();
+
+        //dd($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->UserRepository->findOneBy(['email' => $formData['email']]);
+            $formData = $form->getData();
+            $user = $this->UserRepository->findOneBy(['token' => $token]);
+            if (is_null($user)) {
+                throw new \Exception("User with token: {$token} not found", 404);
+            }
             $date = new \DateTime("now");
-            $date->modify('+15 minutes');
-            $token = md5(uniqid(time()));
-            $user->setToken($token);
-            $user->setDate($date);
+            if ($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('repeatPassword')->getData()
+                    ));
+            } else {
+                $this->addFlash('error', 'Password is the same as the oldest. Please type your new password once again.');
+                return $this->render('change.html.twig', [
+                    'form' => $form->createView()
+                ]);
+            }
+            $user->setToken(null);
+            $user->setDate(null);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $url = $this->generateUrl('app_activate_active', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
-
-            $email = (new Email())
-                ->from('bartlomiej.szyszkowski@yellows.eu')
-                ->to($user->getEmail())
-                ->subject('Activate your account')
-                ->html($url);
-
-            $mailer->send($email);
-            $this->addFlash('success', 'task_created');
+            $this->addFlash('success', 'Password changed');
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('expire.html.twig', [
+        return $this->render('change.html.twig', [
             'form' => $form->createView()
         ]);
     }

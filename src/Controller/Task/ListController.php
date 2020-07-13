@@ -2,6 +2,7 @@
 
 namespace App\Controller\Task;
 
+use App\Repository\CategoryRepository;
 use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,13 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
     private $TodoRepository;
+    private $CategoryRepository;
     private $entityManager;
 
     public function __construct(
         TodoRepository $todoRepository,
+        CategoryRepository $CategoryRepository,
         EntityManagerInterface $entityManager
     ){
         $this->TodoRepository = $todoRepository;
+        $this->CategoryRepository = $CategoryRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -39,7 +43,7 @@ class ListController extends AbstractController
         $date = new \DateTime("now");
 
         foreach($todos as $todo) {
-            if ($todo->getDate()->getTimeStamp() < $date->getTimestamp()) {
+            if (($todo->getDate()->getTimeStamp() < $date->getTimestamp()) || ($todo->getIsDone() == 1)) {
                 $historicalTasks[] = $todo;
             } else {
                 $actualTasks[] = $todo;

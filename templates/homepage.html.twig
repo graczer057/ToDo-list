@@ -23,6 +23,8 @@
                         <p> <strong>Opis: </strong> {{ todo.description }}</p>
                         <p><strong>Priorytet: </strong> {{ todo.priorityName }}</p>
                         <p><strong>Przewidywany czas ukończenia: </strong>{{ todo.date|date('Y:m:d H:m:s')}}</p>
+                        <p><strong>Ukończony: </strong> {{ todo.isDone }}</p>
+                        <p><strong>Kategoria: </strong> {{ todo.category.category }}</p>
                     </div>
                     <div class="d-inline-block float-right">
 
@@ -50,6 +52,9 @@
                         <p> <strong>Opis: </strong> {{ todo.description }}</p>
                         <p><strong>Priorytet: </strong> {{ todo.priorityName }}</p>
                         <p><strong>Przewidywany czas ukończenia: </strong>{{ todo.date|date('Y:m:d H:m:s')}}</p>
+                        <p><strong>Ukończony: </strong> {{ todo.isdone }}</p>
+                        <p><strong>Kategoria: </strong> {{ todo.category }}</p>
+
                     </div>
                     <div class="d-inline-block float-right">
 

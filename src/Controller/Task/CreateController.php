@@ -3,6 +3,7 @@
 namespace App\Controller\Task;
 
 use App\Entity\Todo;
+use App\Entity\Category;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,9 +40,11 @@ class CreateController extends AbstractController
             $formData = $form->getData();
 
             $newTodo = new Todo(
+                $formData['category'],
                 $formData['description'],
                 $formData['priority'],
-                $formData['date']
+                $formData['date'],
+                false
             );
 
             $this->entityManager->persist($newTodo);

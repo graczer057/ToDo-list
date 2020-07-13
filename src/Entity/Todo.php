@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=TodoRepository::class)
@@ -17,13 +18,16 @@ class Todo
     ];
 
     public function __construct(
+        Category $category,
         string $Description,
         int $priority,
-        \DateTime $date
+        \DateTime $date,
+        bool $isDone
     ){
+        $this->setCategory($category);
         $this->setDescription($Description);
         $this->setPriority($priority);
-        $this->setIsDone(false);
+        $this->setIsDone($isDone);
         $this->setDate($date);
     }
 
@@ -53,6 +57,12 @@ class Todo
      * @ORM\Column(type="date")
      */
     private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="todos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -111,5 +121,17 @@ class Todo
     public function getPriorityName(): ?string
     {
         return self::PRIORITY_NAMES[$this->getPriority()];
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

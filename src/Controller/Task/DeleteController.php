@@ -3,6 +3,7 @@
 namespace App\Controller\Task;
 
 use App\Repository\TodoRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TaskType extends AbstractType{
+class EditTaskType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
             ->add('description', TextType::class, [
@@ -41,10 +41,14 @@ class TaskType extends AbstractType{
                 ],
                 'label' => 'Data'
             ])
+            ->add('isDone', CheckboxType::class, [
+                'required' => false,
+                'label' => 'isDone'
+            ])
             ->add('category', EntityType::class, [
                 'class'=>Category::class,
                 'query_builder' => function (EntityRepository
-                $er){
+                                             $er){
                     return $er->createQueryBuilder('u');
                 },
                 'multiple' => false,
@@ -57,11 +61,11 @@ class TaskType extends AbstractType{
                 ],
                 'label' => 'Kategorie',
             ])
-        ->add('btn_submit', SubmitType::class, [
-            'label' => "Zapisz",
-            'attr' => [
-                'class' => 'btn btn-primary'
-            ]
-        ]);
+            ->add('btn_submit', SubmitType::class, [
+                'label' => "Zapisz",
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ]);
     }
 }

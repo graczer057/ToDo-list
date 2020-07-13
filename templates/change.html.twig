@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Change password{% endblock %}
+
+{% block body %}
+
+    <h1>Type your new password</h1>
+    <p>Type bellow your new password and confirm your new password</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.repeatPassword)}}
+
+    <button type="submit" class="btn">Change password</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Accounts;
+namespace App\Controller;
 
-use App\Form\ExpireFormType;
+use App\Form\SendFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Mime\Email;
 
-class ExpireController extends AbstractController
+class SendController extends AbstractController
 {
     private $entityManger;
     private $UserRepository;
@@ -37,40 +37,39 @@ class ExpireController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/expire}", name="expire")
+     * @Route("/email}", name="email_password_change")
      */
     public function expire(Request $request, MailerInterface $mailer): Response
     {
-        $form = $this->createForm(ExpireFormType::class);
+        $form = $this->createForm(SendFormType::class);
         $form->handleRequest($request);
 
         $formData = $form->getData();
-        dump($formData);
         $this->createNotFoundException();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->UserRepository->findOneBy(['email' => $formData['email']]);
             $date = new \DateTime("now");
-            $date->modify('+15 minutes');
+            $date->modify ("+15 minutes");
             $token = md5(uniqid(time()));
             $user->setToken($token);
             $user->setDate($date);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $url = $this->generateUrl('app_activate_active', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
+            $url = $this->generateUrl('change_password', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
 
             $email = (new Email())
                 ->from('bartlomiej.szyszkowski@yellows.eu')
                 ->to($user->getEmail())
-                ->subject('Activate your account')
+                ->subject('Change your password')
                 ->html($url);
 
             $mailer->send($email);
-            $this->addFlash('success', 'task_created');
+            $this->addFlash('success', 'We successfully send you an email.');
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('expire.html.twig', [
+        return $this->render('send.html.twig', [
             'form' => $form->createView()
         ]);
     }

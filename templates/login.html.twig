@@ -18,7 +18,9 @@
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
-
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('email_password_change') }}">Przypomnij hasło</a>
+    </li>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >

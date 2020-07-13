@@ -4,6 +4,7 @@ namespace App\Controller\Accounts;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\ExpireFormType;
 use App\Security\Authenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,17 +50,17 @@ class RegistrationController extends AbstractController
             $url = $this->generateUrl('app_activate_active', array('token' => $user->getToken()), UrlGenerator::ABSOLUTE_URL);
 
             $email = (new Email())
-                ->from('task.bot@yellows.eu')
+                ->from('bartlomiej.szyszkowski@yellows.eu')
                 ->to($user->getEmail())
                 ->subject('Activate your account')
                 ->html($url);
 
             $mailer->send($email);
-
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
 }
