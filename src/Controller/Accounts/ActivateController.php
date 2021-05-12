@@ -46,10 +46,7 @@ class ActivateController extends AbstractController
         if(is_null($user)){
             return $this->render('base.html.twig');
         }
-        dump($user->getTokenExpire()->getTimestamp() > $date->getTimestamp());
 
-        dump($user->getTokenExpire());
-        dump($date->getTimestamp());
         if($user->getTokenExpire()->getTimestamp() > $date->getTimestamp()){
             $user -> setIsActiveUser('1');
             $user -> setToken(null);

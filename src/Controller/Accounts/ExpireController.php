@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\User;
 use App\Security\Authenticator;
@@ -24,15 +23,13 @@ class ExpireController extends AbstractController
 {
     private $entityManger;
     private $UserRepository;
-    private $emailVerifier;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        UserRepository $UserRepository,
-        EmailVerifier $emailVerifier
+        UserRepository $UserRepository
     ){
         $this->entityManger = $entityManager;
         $this->UserRepository = $UserRepository;
-        $this->emailVerifier = $emailVerifier;
     }
     /**
      * @param Request $request
@@ -45,7 +42,7 @@ class ExpireController extends AbstractController
         $form->handleRequest($request);
 
         $formData = $form->getData();
-        dump($formData);
+
         $this->createNotFoundException();
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -4,35 +4,22 @@ namespace App\Controller;
 use App\Form\ChangeFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\User;
-use App\Security\Authenticator;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Symfony\Component\Mime\Email;
 
 class ChangeController extends AbstractController
 {
     private $entityManger;
     private $UserRepository;
-    private $emailVerifier;
     public function __construct(
         EntityManagerInterface $entityManager,
-        UserRepository $UserRepository,
-        EmailVerifier $emailVerifier
+        UserRepository $UserRepository
     ){
         $this->entityManger = $entityManager;
         $this->UserRepository = $UserRepository;
-        $this->emailVerifier = $emailVerifier;
     }
     /**
      * @param string $token

@@ -3,7 +3,6 @@
 namespace App\Controller\Task;
 
 use App\Entity\Todo;
-use App\Entity\Category;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -70,7 +70,6 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
@@ -82,9 +81,6 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
     public function getPassword($credentials): ?string
     {
         return $credentials['password'];

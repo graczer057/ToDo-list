@@ -14,23 +14,18 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Mime\Email;
-use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class InviteController extends AbstractController
 {
     private $entityManger;
     private $UserRepository;
-    private $emailVerifier;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        UserRepository $UserRepository,
-        EmailVerifier $emailVerifier
+        UserRepository $UserRepository
     ){
         $this->entityManger = $entityManager;
         $this->UserRepository = $UserRepository;
-        $this->emailVerifier = $emailVerifier;
     }
     /**
      * @param string $email1
