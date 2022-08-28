@@ -30,9 +30,10 @@ class Category
     private $tasks;
 
 
-    public function __construct()
-    {
-        $this->tasks = new ArrayCollection();
+    public function __construct(
+        string $category
+    ){
+        $this->Category = $category;
     }
 
     public function getId(): ?int
@@ -50,6 +51,10 @@ class Category
         $this->Category = $Category;
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->Category;
     }
 
     /**

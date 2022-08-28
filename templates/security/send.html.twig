@@ -1,0 +1,15 @@
+{% extends 'landing/base.html.twig' %}
+
+{% block title %}Przypomnienie hasła{% endblock %}
+
+{% block body %}
+
+    <h1>Podaj nam swój adres email</h1>
+    <p>W celu zresetowania hasła prosimy o podanie adresu email powiązanego z kontem na naszym portalu.</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+
+    <button type="submit" class="btn">Wyślij link</button>
+    {{ form_end(form) }}
+{% endblock %}

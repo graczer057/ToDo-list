@@ -1,0 +1,19 @@
+{% extends 'landing/base.html.twig' %}
+
+{% block title %}Link nie ważny{% endblock %}
+
+{% block body %}
+
+    {% if flashesbag.success is defined %}
+        <div class="col-8 mx-auto bg-success border border-dark shadow rounded">
+            <p>{{ flashesbag.success[0] }}</p>
+        </div>
+    {% endif %}
+
+    <h1>Twój link aktywacyjny wygasł. Podaj jeszcze raz adres email, a wyślemy kolejny link aktywacyjny</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        <button type="submit" class="btn">Wyślij nowy link</button>
+    {{ form_end(form) }}
+{% endblock %}

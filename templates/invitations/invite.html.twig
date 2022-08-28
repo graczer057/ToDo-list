@@ -1,0 +1,15 @@
+{% extends 'landing/base.html.twig' %}
+
+{% block title %}Zaproś znajomego{% endblock %}
+
+{% block body %}
+
+    <h1>Zaproś znajomego</h1>
+    <p>Podaj adres email znajomego, jeśli jeszcze nie założonego konta na tym portalu.</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+
+    <button type="submit" class="btn">Zaproś znajomego</button>
+    {{ form_end(form) }}
+{% endblock %}

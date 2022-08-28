@@ -161,4 +161,19 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function encodePassword(string $raw, ?string $salt)
+    {
+        // TODO: Implement encodePassword() method.
+    }
+
+    public function isPasswordValid(string $encoded, string $raw, ?string $salt)
+    {
+        // TODO: Implement isPasswordValid() method.
+    }
+
+    public function needsRehash(string $encoded): bool
+    {
+        // TODO: Implement needsRehash() method.
+    }
 }

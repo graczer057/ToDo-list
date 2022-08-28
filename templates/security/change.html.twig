@@ -1,0 +1,15 @@
+{% extends 'landing/base.html.twig' %}
+
+{% block title %}Zmiana hasła{% endblock %}
+
+{% block body %}
+
+    <h1>Podaj swoje nowe hasło</h1>
+    <p>W celu zresetowania hasła prosimy o podanie nowego hasła.</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.repeatPassword)}}
+
+    <button type="submit" class="btn">Zmień hasło</button>
+    {{ form_end(form) }}
+{% endblock %}

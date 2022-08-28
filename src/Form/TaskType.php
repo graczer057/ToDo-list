@@ -34,7 +34,12 @@ class TaskType extends AbstractType{
             ])
             ->add('date', DateTimeType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'js-datepicker'
+                ],
+                'widget' => 'single_text',
+                'html5' => 'false',
+                'placeholder' => [
+                    'year' => 'Rok', 'month' => 'Miesiąc', 'day' => 'Dzień', 'hour' => 'Godzina', 'minute' => 'Minuta',
                 ],
                 'label' => 'Data'
             ])

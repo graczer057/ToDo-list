@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\TodoRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=TodoRepository::class)
@@ -21,7 +22,7 @@ class Todo
         Category $category,
         string $Description,
         int $priority,
-        \DateTime $date,
+        DateTime $date,
         bool $isDone
     ){
         $this->setCategory($category);
@@ -54,7 +55,7 @@ class Todo
     private $isDone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
@@ -105,7 +106,7 @@ class Todo
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface{
+    public function getDate(): ?DateTimeInterface{
         /** @var \DateTime $date */
         $date = $this->date;
         return $date;
@@ -123,12 +124,12 @@ class Todo
         return self::PRIORITY_NAMES[$this->getPriority()];
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
 
